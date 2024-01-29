@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "smarthouse"
+version = "0.1.0"
+description = ""
+authors = ["selabhvl"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+pythonpath = ". tests"
