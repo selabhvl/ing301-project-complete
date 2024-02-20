@@ -104,6 +104,7 @@ class Room:
         self.room_size = room_size
         self.room_name = room_name
         self.devices : List[Device]= []
+        self.db_id = None
 
 
 
