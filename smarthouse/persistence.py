@@ -135,7 +135,7 @@ SELECT ts, value, unit FROM measurements WHERE device = ? ORDER BY datetime(ts) 
 
     def insert_measurement(self, sensor: str, measurement: Measurement) -> None:
         query = f"""
-INSERT INTO measurements VALUES (device, ts, value, unit) VALUES(?, ?, ?)
+INSERT INTO measurements (device, ts, value, unit) VALUES (?, ?, ?, ?)
         """
         c = self.cursor()
         c.execute(query, (sensor, measurement.timestamp, measurement.value, measurement.unit))
