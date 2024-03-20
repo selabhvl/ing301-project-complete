@@ -16,7 +16,7 @@ vars:pre-request {
 
 assert {
   res.status: eq 200
-  res.body.model_name: eq SmartTemp 42
+  res.body.model: eq SmartTemp 42
   res.body.supplier: eq AetherCorp
   res.body.device_category: eq sensor
 }

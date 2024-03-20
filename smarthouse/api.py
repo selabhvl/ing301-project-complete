@@ -68,7 +68,7 @@ class RoomInfo(BaseModel):
 
 class DeviceInfo(BaseModel):
     id: str
-    model_name: str
+    model: str
     supplier: str
     device_type: str
     device_category: Literal["actuator"] | Literal["sensor"] | Literal["actuator_with_sensor"] | Literal["unknown"]
@@ -86,7 +86,7 @@ class DeviceInfo(BaseModel):
             category = "sensor"
         return DeviceInfo(
             id=device.id,
-            model_name=device.model_name,
+            model=device.model_name,
             supplier=device.supplier,
             device_type=device.device_type,
             device_category=category,
@@ -233,7 +233,7 @@ def update_sensor_state(uuid: str, target_state: ActuatorStateInfo) -> Response:
         elif target_state.state == "running":
             device.turn_on()
         elif target_state.state == "off":
-            device.turn_on()
+            device.turn_off()
         # else leave unchanged
         repo.update_actuator_state(device)
         return JSONResponse(jsonable_encoder(ActuatorStateInfo.from_obj(device)))
