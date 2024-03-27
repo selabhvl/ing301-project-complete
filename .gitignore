@@ -2,3 +2,4 @@ __pycache__
 .venv
 smarthouse/.DS_Store
 .DS_Store
+.idea/*

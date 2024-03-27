@@ -1,12 +1,16 @@
 import json
+import datetime
 
 
 class SensorMeasurement:
 
     def __init__(self, init_value):
+        self.timestamp = str(datetime.datetime.now().isoformat())
         self.value = init_value
+        self.unit = "°C"
 
     def set_temperature(self, new_value):
+        self.timestamp = str(datetime.datetime.now().isoformat())
         self.value = new_value
 
     def get_temperature(self):

@@ -117,6 +117,7 @@ app.mount("/static", StaticFiles(directory="www"), name="static")
 def root():
     return RedirectResponse("/static/index.html")
 
+
 # Health Check / Hello World
 @app.get("/hello")
 def hello(name: str = "world"):
@@ -163,7 +164,7 @@ def get_devices() -> list[DeviceInfo]:
     return [DeviceInfo.from_obj(d) for d in smarthouse.get_devices()]
 
 
-@app.get(("/smarthouse/device/{uuid}"))
+@app.get("/smarthouse/device/{uuid}")
 def get_device(uuid: str) -> Response:
     for d in smarthouse.get_devices():
         if d.id == uuid:
@@ -173,7 +174,6 @@ def get_device(uuid: str) -> Response:
 
 @app.get("/smarthouse/sensor/{uuid}/current")
 def get_most_recent_measurement(uuid: str) -> Response:
-    print("debug called")
     device = smarthouse.get_device_by_id(uuid)
     if device and device.is_sensor():
         reading = repo.get_latest_reading(device)
@@ -183,6 +183,7 @@ def get_most_recent_measurement(uuid: str) -> Response:
             return JSONResponse(content=jsonable_encoder({'reason': 'no timeseries available'}), status_code=404)
     else:
         return JSONResponse(content=jsonable_encoder({'reason': 'sensor with id not found'}), status_code=404)
+
 
 @app.post("/smarthouse/sensor/{uuid}/current")
 def add_sensor_measurement(uuid: str, measurement: Measurement) -> Response:
@@ -208,7 +209,7 @@ def get_measurements(uuid: str, n: int | None = None) -> Response:
 def delete_old_measurement(uuid: str) -> Response:
     device = smarthouse.get_device_by_id(uuid)
     if device and device.is_sensor():
-        result  = repo.delete_oldest_reading(uuid)
+        result = repo.delete_oldest_reading(uuid)
         return JSONResponse(content=jsonable_encoder(result), status_code=200)
     else:
         return JSONResponse(content=jsonable_encoder({'reason': 'sensor with uuid not found'}), status_code=404)
