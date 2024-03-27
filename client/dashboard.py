@@ -11,7 +11,7 @@ log_format = "%(asctime)s: %(message)s"
 logging.basicConfig(format=log_format, level=logging.INFO, datefmt="%H:%M:%S")
 
 root = tk.Tk()
-root.geometry('300x300')
+root.geometry('450x300')
 root.title('ING301 SmartHouse Dashboard')
 
 init_lightbulb(root, common.LIGHTBULB_DID)
